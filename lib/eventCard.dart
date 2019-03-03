@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'eventDetails.dart';
 
 class Event {
   final String title, tagline, time, venue, description, contact, image;
@@ -14,48 +13,9 @@ class Event {
   });
 }
 
-final events = <Event>[
-  Event(
-    title: 'Mini Placement',
-    tagline: 'Do you have what it takes?',
-    time: 'Mar 8, 9am - 12pm',
-    venue: 'LHC 301',
-    description: 'Hello world Hello world Hello world Hello world',
-    contact: '96773207736',
-    image: 'assets/images/mini-placement.png',
-  ),
-  Event(
-    title: 'OSPC',
-    tagline: 'Clash of the coders',
-    time: 'Mar 8, 9am - 12pm',
-    venue: 'LHC 302',
-    description: 'Hello world Hello world Hello world Hello world',
-    contact: '96773207736',
-    image: 'assets/images/ospc.png',
-  ),
-  Event(
-    title: "Code 'N Chaos",
-    tagline: 'Rise above the rest',
-    time: 'Mar 9, 9am - 12pm',
-    venue: 'LHC 303',
-    description: 'Hello world Hello world Hello world Hello world',
-    contact: '96773207736',
-    image: 'assets/images/code-n-chaos.jpg',
-  ),
-  Event(
-    title: "DB Dwellers",
-    tagline: 'Select * from the universe',
-    time: 'Mar 8, 9am - 12pm',
-    venue: 'LHC 304',
-    description: 'Hello world Hello world Hello world Hello world',
-    contact: '96773207736',
-    image: 'assets/images/db-dwellers.jpg',
-  ),
-];
-
 class EventCard extends StatelessWidget {
   final Event event;
-  final int position;
+  final VoidCallback onTap;
   final ShapeBorder shape = const RoundedRectangleBorder(
     borderRadius: BorderRadius.only(
       topLeft: Radius.circular(12.0),
@@ -64,9 +24,8 @@ class EventCard extends StatelessWidget {
       bottomRight: Radius.circular(12.0),
     ),
   );
-  EventCard({Key key, @required this.event, @required this.position})
+  EventCard({Key key, @required this.event, this.onTap})
       : assert(event != null),
-        assert(position != null),
         super(key: key);
 
   // This height will allow for all the Card's content to fit comfortably within the card.
@@ -88,10 +47,7 @@ class EventCard extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 shape: shape,
                 child: InkWell(
-                  onTap: () {
-                    print('Card was tapped');
-                    Navigator.push(context, EventDetails(position));
-                  },
+                  onTap: onTap,
                   // Generally, material cards use onSurface with 12% opacity for the pressed state.
                   splashColor:
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
@@ -133,7 +89,7 @@ class EventContent extends StatelessWidget {
               // of the Material and display ink effects above it. Using a
               // standard Image will obscure the ink splash.
               child: Ink.image(
-                image: AssetImage(event.image),
+                image: AssetImage(this.event.image),
                 fit: BoxFit.cover,
                 child: Container(),
               ),
@@ -154,7 +110,7 @@ class EventContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  event.title,
+                  this.event.title,
                   style: titleStyle,
                 ),
               ),
@@ -162,7 +118,7 @@ class EventContent extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Text(
-                  event.tagline,
+                  this.event.tagline,
                   style: descriptionStyle.copyWith(color: Colors.black54),
                 ),
               ),
