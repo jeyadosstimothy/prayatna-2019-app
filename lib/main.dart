@@ -140,7 +140,12 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        DetailsPageRoute(techEventsTitle, techEvents, index),
+                        DetailsPageRoute(
+                          techEventsTitle,
+                          techEvents,
+                          index,
+                          showResults: true,
+                        ),
                       );
                     },
                   ),
@@ -158,7 +163,10 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         DetailsPageRoute(
-                            nonTechEventsTitle, nonTechEvents, index),
+                          nonTechEventsTitle,
+                          nonTechEvents,
+                          index,
+                        ),
                       );
                     },
                   ),

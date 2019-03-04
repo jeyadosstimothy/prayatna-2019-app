@@ -142,6 +142,7 @@ class EventContent extends StatelessWidget {
 class EventCardExpanded extends StatelessWidget {
   final Event event;
   final VoidCallback onTap;
+  final bool showResults;
   final ShapeBorder shape = const RoundedRectangleBorder(
     borderRadius: BorderRadius.only(
       topLeft: Radius.circular(12.0),
@@ -150,8 +151,12 @@ class EventCardExpanded extends StatelessWidget {
       bottomRight: Radius.circular(12.0),
     ),
   );
-  EventCardExpanded({Key key, @required this.event, this.onTap})
-      : assert(event != null),
+  EventCardExpanded({
+    Key key,
+    @required this.event,
+    this.onTap,
+    this.showResults,
+  })  : assert(event != null),
         super(key: key);
 
   @override
@@ -177,7 +182,10 @@ class EventCardExpanded extends StatelessWidget {
                       Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
                   // Generally, material cards do not have a highlight overlay.
                   highlightColor: Colors.transparent,
-                  child: EventContentExpanded(event: event),
+                  child: EventContentExpanded(
+                    event: event,
+                    showResults: showResults,
+                  ),
                 ),
               ),
             ),
@@ -190,8 +198,9 @@ class EventCardExpanded extends StatelessWidget {
 
 class EventContentExpanded extends StatelessWidget {
   final Event event;
+  final bool showResults;
 
-  EventContentExpanded({Key key, @required this.event})
+  EventContentExpanded({Key key, @required this.event, this.showResults})
       : assert(event != null),
         super(key: key);
 
@@ -205,128 +214,131 @@ class EventContentExpanded extends StatelessWidget {
     final TextStyle descriptionStyle =
         theme.textTheme.body1.copyWith(color: Colors.black54);
     final List<Widget> children = <Widget>[
-      // Photo and title.
-      SizedBox(
-        height: 184.0,
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              // In order to have the ink splash appear above the image, you
-              // must use Ink.image. This allows the image to be painted as part
-              // of the Material and display ink effects above it. Using a
-              // standard Image will obscure the ink splash.
-              child: Ink.image(
-                image: AssetImage(this.event.image),
-                fit: BoxFit.cover,
-                child: Container(),
-              ),
-            ),
-          ],
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          this.event.title,
+          style: titleStyle,
         ),
       ),
-      // Description and share/explore buttons.
       Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-        child: DefaultTextStyle(
-          softWrap: false,
-          overflow: TextOverflow.ellipsis,
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          this.event.description,
           style: descriptionStyle,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+      ),
+      Divider(),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          'Date',
+          style: subheadStyle,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          this.event.time,
+          style: descriptionStyle,
+        ),
+      ),
+      Divider(),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          'Venue',
+          style: subheadStyle,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          this.event.venue,
+          style: descriptionStyle,
+        ),
+      ),
+      Divider(),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          'Team Size',
+          style: subheadStyle,
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Text(
+          this.event.teamSize,
+          style: descriptionStyle,
+        ),
+      ),
+    ];
+    if (this.showResults) {
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Center(
+            child: ButtonTheme(
+              minWidth: 185.0,
+              height: 45.0,
+              child: FlatButton.icon(
+                color: Theme.of(context).primaryColor,
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0),
+                ),
+                icon: Icon(
+                  Icons.assessment,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'View Results',
+                  style: subheadStyle.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.normal),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        // Photo and title.
+        SizedBox(
+          height: 184.0,
+          child: Stack(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  this.event.title,
-                  style: titleStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  this.event.description,
-                  style: descriptionStyle,
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  'Date',
-                  style: subheadStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  this.event.time,
-                  style: descriptionStyle,
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  'Venue',
-                  style: subheadStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  this.event.venue,
-                  style: descriptionStyle,
-                ),
-              ),
-              Divider(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  'Team Size',
-                  style: subheadStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  this.event.teamSize,
-                  style: descriptionStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Center(
-                  child: ButtonTheme(
-                    minWidth: 185.0,
-                    height: 45.0,
-                    child: FlatButton.icon(
-                      color: Theme.of(context).primaryColor,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0),
-                      ),
-                      icon: Icon(
-                        Icons.assessment,
-                        color: Colors.white,
-                      ),
-                      label: Text(
-                        'View Results',
-                        style: subheadStyle.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.normal),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
+              Positioned.fill(
+                // In order to have the ink splash appear above the image, you
+                // must use Ink.image. This allows the image to be painted as part
+                // of the Material and display ink effects above it. Using a
+                // standard Image will obscure the ink splash.
+                child: Ink.image(
+                  image: AssetImage(this.event.image),
+                  fit: BoxFit.cover,
+                  child: Container(),
                 ),
               ),
             ],
           ),
         ),
-      ),
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: children,
+        // Description and share/explore buttons.
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+          child: DefaultTextStyle(
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+            style: descriptionStyle,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
