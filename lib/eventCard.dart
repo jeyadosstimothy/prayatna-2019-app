@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'resultsPage.dart';
 
 class Event {
   final String title,
@@ -296,7 +297,10 @@ class EventContentExpanded extends StatelessWidget {
                   style: subheadStyle.copyWith(
                       color: Colors.white, fontWeight: FontWeight.normal),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context, ResultsPageRoute(title: this.event.title));
+                },
               ),
             ),
           ),
