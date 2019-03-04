@@ -31,42 +31,17 @@ class DetailsPage extends StatelessWidget {
       appBar: AppBar(title: new Text(this.title)),
       body: PageView.builder(
         controller: PageController(
-            viewportFraction: 0.875, initialPage: this.initPosition),
+            viewportFraction: 0.9, initialPage: this.initPosition),
         itemBuilder: (context, position) {
           return Hero(
             tag: this.events[position].title,
-            child: EventCard(
+            child: EventCardExpanded(
               event: this.events[position],
             ),
           );
         },
         itemCount: this.events.length,
       ),
-      // floatingActionButtonLocation:
-      //     FloatingActionButtonLocation.centerFloat, //centerDocked
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {},
-      //   tooltip: 'View Results',
-      //   icon: Icon(Icons.assessment), //calendar_view_day, dehaze, equalizer
-      //   label: Text('View Results'),
-      //   elevation: 2.0,
-      // ),
-      // bottomNavigationBar: BottomAppBar(
-      //   child: new Row(
-      //     mainAxisSize: MainAxisSize.max,
-      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //     children: <Widget>[
-      //       IconButton(
-      //         icon: Icon(Icons.phone),
-      //         onPressed: () {},
-      //       ),
-      //       IconButton(
-      //         icon: Icon(Icons.search),
-      //         onPressed: () {},
-      //       )
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

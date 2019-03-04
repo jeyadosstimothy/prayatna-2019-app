@@ -30,6 +30,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/mini-placement.png',
+      teamSize: 'Individual participation',
     ),
     Event(
       title: 'OSPC',
@@ -39,6 +40,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/ospc.png',
+      teamSize: 'Max. 2 per team',
     ),
     Event(
       title: "Code 'N Chaos",
@@ -48,6 +50,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/code-n-chaos.jpg',
+      teamSize: 'Max. 2 per team',
     ),
     Event(
       title: "DB Dwellers",
@@ -57,6 +60,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/db-dwellers.jpg',
+      teamSize: 'Max. 2 per team',
     ),
   ];
 
@@ -69,6 +73,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/kaleidoscope.jpg',
+      teamSize: 'Individual participation',
     ),
     Event(
       title: 'Math O Mania',
@@ -78,6 +83,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/math-o-mania.jpg',
+      teamSize: 'Max. 2 per team',
     ),
     Event(
       title: "Connexions",
@@ -87,6 +93,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/connexions.png',
+      teamSize: 'Max. 2 per team',
     ),
     Event(
       title: "Treasure Hunt",
@@ -96,6 +103,7 @@ class HomePage extends StatelessWidget {
       description: 'Hello world Hello world Hello world Hello world',
       contact: '96773207736',
       image: 'assets/images/treasure-hunt.jpg',
+      teamSize: 'Max. 3 per team',
     ),
   ];
 
