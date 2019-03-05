@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
   final techEvents = <Event>[
     Event(
       title: 'Mini Placement',
+      id: 'ctci',
       tagline: 'Do you have what it takes?',
       time: 'Mar 8, 9am - 12pm',
       venue: 'LHC 301',
@@ -34,6 +35,7 @@ class HomePage extends StatelessWidget {
     ),
     Event(
       title: 'OSPC',
+      id: 'ospc',
       tagline: 'Clash of the coders',
       time: 'Mar 8, 9am - 12pm',
       venue: 'LHC 302',
@@ -44,6 +46,7 @@ class HomePage extends StatelessWidget {
     ),
     Event(
       title: "Code 'N Chaos",
+      id: 'cnc',
       tagline: 'Rise above the rest',
       time: 'Mar 9, 9am - 12pm',
       venue: 'LHC 303',
@@ -54,6 +57,7 @@ class HomePage extends StatelessWidget {
     ),
     Event(
       title: "DB Dwellers",
+      id: 'dbd',
       tagline: 'Select * from the universe',
       time: 'Mar 8, 9am - 12pm',
       venue: 'LHC 304',

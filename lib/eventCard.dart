@@ -9,7 +9,8 @@ class Event {
       description,
       contact,
       image,
-      teamSize;
+      teamSize,
+      id;
   Event({
     this.title,
     this.tagline,
@@ -19,6 +20,7 @@ class Event {
     this.contact,
     this.image,
     this.teamSize,
+    this.id,
   });
 }
 
@@ -297,9 +299,19 @@ class EventContentExpanded extends StatelessWidget {
                   style: subheadStyle.copyWith(
                       color: Colors.white, fontWeight: FontWeight.normal),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                      context, ResultsPageRoute(title: this.event.title));
+                onPressed: () async {
+                  String value = await Navigator.push(
+                    context,
+                    ResultsPageRoute(
+                      title: this.event.title,
+                      id: this.event.id,
+                    ),
+                  );
+                  if (value != null) {
+                    final snackBar = SnackBar(content: Text(value));
+                    // Find the Scaffold in the Widget tree and use it to show a SnackBar
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
                 },
               ),
             ),

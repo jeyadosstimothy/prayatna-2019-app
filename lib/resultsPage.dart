@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'team.dart';
+import 'request.dart';
 
-class ResultsPageRoute extends MaterialPageRoute {
-  ResultsPageRoute({String title})
+class ResultsPageRoute extends MaterialPageRoute<String> {
+  ResultsPageRoute({String title, String id})
       : super(
-          builder: (context) => new ResultsPage(title: title),
+          builder: (context) => new ResultsPage(title: title, id: id),
         );
 
   @override
@@ -15,112 +16,45 @@ class ResultsPageRoute extends MaterialPageRoute {
 }
 
 class ResultsPage extends StatefulWidget {
-  final String title;
+  final String title, id;
 
-  ResultsPage({Key key, this.title}) : super(key: key);
+  ResultsPage({Key key, this.title, this.id}) : super(key: key);
 
-  _ResultsPageState createState() => _ResultsPageState(title: this.title);
+  _ResultsPageState createState() => _ResultsPageState(
+        title: this.title,
+        id: this.id,
+      );
 }
 
-class _ResultsPageState extends State<ResultsPage> {
-  final String title;
+class _ResultsPageState extends State<ResultsPage>
+    implements HttpRequestContract {
+  final String title, id;
+  bool resultsReady;
   List<Team> teamDetails;
+  HttpRequest request;
 
-  _ResultsPageState({this.title});
+  _ResultsPageState({this.title, this.id});
 
   @override
   void initState() {
     super.initState();
-    teamDetails = <Team>[
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '70',
-        rank: '1',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '60',
-        rank: '2',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '40',
-        rank: '3',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '20',
-        rank: '4',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '70',
-        rank: '1',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '60',
-        rank: '2',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '40',
-        rank: '3',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '20',
-        rank: '4',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '70',
-        rank: '1',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '60',
-        rank: '2',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '40',
-        rank: '3',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '20',
-        rank: '4',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '70',
-        rank: '1',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '60',
-        rank: '2',
-        isSelected: true,
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '40',
-        rank: '3',
-      ),
-      Team(
-        members: ['ram', 'sam', 'ram'],
-        marks: '20',
-        rank: '4',
-      ),
-    ];
+    resultsReady = false;
+    teamDetails = List<Team>();
+    request = HttpRequest(this);
+    request.loadResults();
+  }
+
+  String getEventId() => this.id;
+
+  void onLoadResultsComplete(List<Team> teams, int selected) {
+    setState(() {
+      teamDetails = teams;
+      resultsReady = true;
+    });
+  }
+
+  void onLoadResultsError(String errorMessage) {
+    Navigator.pop(context, errorMessage);
   }
 
   @override
@@ -129,28 +63,32 @@ class _ResultsPageState extends State<ResultsPage> {
       appBar: AppBar(
         title: Text(this.title),
       ),
-      body: new ListView.separated(
-        itemCount: teamDetails.length + 1,
-        itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: ResultsContent(
-                team: Team(
-                  rank: 'Rank',
-                  members: <String>['Team Members'],
-                  marks: 'Score',
-                  style: Theme.of(context).textTheme.subtitle,
-                ),
-              ),
-            );
-          }
-          return new ResultsContent(team: this.teamDetails[index - 1]);
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider();
-        },
-      ),
+      body: resultsReady
+          ? new ListView.separated(
+              itemCount: teamDetails.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: ResultsContent(
+                      team: Team(
+                        rank: 'Rank',
+                        members: <String>['Team Members'],
+                        marks: 'Score',
+                        style: Theme.of(context).textTheme.subtitle,
+                      ),
+                    ),
+                  );
+                }
+                return new ResultsContent(team: this.teamDetails[index - 1]);
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider();
+              },
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
