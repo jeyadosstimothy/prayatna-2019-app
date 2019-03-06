@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'team.dart';
 import 'request.dart';
+import 'search.dart';
+
+List<Team> teamDetails;
 
 class ResultsPageRoute extends MaterialPageRoute<String> {
   ResultsPageRoute({String title, String id})
@@ -30,7 +33,6 @@ class _ResultsPageState extends State<ResultsPage>
     implements HttpRequestContract {
   final String title, id;
   bool resultsReady;
-  List<Team> teamDetails;
   HttpRequest request;
 
   _ResultsPageState({this.title, this.id});
@@ -62,6 +64,14 @@ class _ResultsPageState extends State<ResultsPage>
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: DataSearch());
+            },
+          )
+        ],
       ),
       body: resultsReady
           ? new ListView.separated(
@@ -80,7 +90,7 @@ class _ResultsPageState extends State<ResultsPage>
                     ),
                   );
                 }
-                return new ResultsContent(team: this.teamDetails[index - 1]);
+                return new ResultsContent(team: teamDetails[index - 1]);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return Divider();

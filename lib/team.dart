@@ -17,4 +17,8 @@ class Team {
   int length() {
     return members.length;
   }
+
+  List<String> memberList(){
+    return this.members;
+  }
 }
