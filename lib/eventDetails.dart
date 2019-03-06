@@ -32,19 +32,28 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(title: new Text(this.title)),
-      body: PageView.builder(
-        controller: PageController(
-            viewportFraction: 0.9, initialPage: this.initPosition),
-        itemBuilder: (context, position) {
-          return Hero(
-            tag: this.events[position].title,
-            child: EventCardExpanded(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.of(context).canvasColor,
+              Colors.cyan.shade50,
+            ],
+          ),
+        ),
+        child: PageView.builder(
+          controller: PageController(
+              viewportFraction: 0.9, initialPage: this.initPosition),
+          itemBuilder: (context, position) {
+            return EventCardExpanded(
               event: this.events[position],
               showResults: showResults,
-            ),
-          );
-        },
-        itemCount: this.events.length,
+            );
+          },
+          itemCount: this.events.length,
+        ),
       ),
     );
   }

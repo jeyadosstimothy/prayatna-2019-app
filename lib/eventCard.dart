@@ -11,6 +11,7 @@ class Event {
       image,
       teamSize,
       id;
+  final Color color;
   Event({
     this.title,
     this.tagline,
@@ -21,6 +22,7 @@ class Event {
     this.image,
     this.teamSize,
     this.id,
+    this.color,
   });
 }
 
@@ -44,27 +46,45 @@ class EventCard extends StatelessWidget {
     return SafeArea(
       top: false,
       bottom: false,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              child: Card(
-                // This ensures that the Card's children (including the ink splash) are clipped correctly.
-                clipBehavior: Clip.antiAlias,
-                shape: shape,
-                child: InkWell(
-                  onTap: onTap,
-                  // Generally, material cards use onSurface with 12% opacity for the pressed state.
-                  splashColor:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                  // Generally, material cards do not have a highlight overlay.
-                  highlightColor: Colors.transparent,
-                  child: EventContent(event: event),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            center: Alignment.bottomRight, // near the top right
+            radius: 0.7,
+            colors: [
+              this.event.color, // yellow sun
+              Theme.of(context).canvasColor, // blue sky
+            ],
+            stops: [0.5, 1.0],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Hero(
+            tag: this.event.title,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  child: Card(
+                    // This ensures that the Card's children (including the ink splash) are clipped correctly.
+                    clipBehavior: Clip.antiAlias,
+                    shape: shape,
+                    child: InkWell(
+                      onTap: onTap,
+                      // Generally, material cards use onSurface with 12% opacity for the pressed state.
+                      splashColor: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.12),
+                      // Generally, material cards do not have a highlight overlay.
+                      highlightColor: Colors.transparent,
+                      child: EventContent(event: event),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -169,30 +189,35 @@ class EventCardExpanded extends StatelessWidget {
       bottom: false,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              child: Card(
-                // This ensures that the Card's children (including the ink splash) are clipped correctly.
-                clipBehavior: Clip.antiAlias,
-                shape: shape,
-                child: InkWell(
-                  onTap: onTap,
-                  // Generally, material cards use onSurface with 12% opacity for the pressed state.
-                  splashColor:
-                      Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                  // Generally, material cards do not have a highlight overlay.
-                  highlightColor: Colors.transparent,
-                  child: EventContentExpanded(
-                    event: event,
-                    showResults: showResults,
+        child: Hero(
+          tag: this.event.title,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                child: Card(
+                  // This ensures that the Card's children (including the ink splash) are clipped correctly.
+                  clipBehavior: Clip.antiAlias,
+                  shape: shape,
+                  child: InkWell(
+                    onTap: onTap,
+                    // Generally, material cards use onSurface with 12% opacity for the pressed state.
+                    splashColor: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withOpacity(0.12),
+                    // Generally, material cards do not have a highlight overlay.
+                    highlightColor: Colors.transparent,
+                    child: EventContentExpanded(
+                      event: event,
+                      showResults: showResults,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

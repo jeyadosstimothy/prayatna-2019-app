@@ -9,9 +9,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Prayatna',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: HomePage(title: "Prayatna '19"),
     );
   }
@@ -31,6 +28,7 @@ class HomePage extends StatelessWidget {
       contact: '9442248023',
       image: 'assets/images/amazon-intern-hiring.jpg',
       teamSize: 'Individual participation',
+      color: Colors.orange.shade100,
     ),
     Event(
       title: 'OSPC',
@@ -41,6 +39,7 @@ class HomePage extends StatelessWidget {
       contact: '8056027690',
       image: 'assets/images/ospc.png',
       teamSize: 'Max. 2 per team',
+      color: Colors.blue.shade100,
     ),
     Event(
       title: 'Mini Placement',
@@ -51,6 +50,7 @@ class HomePage extends StatelessWidget {
       contact: '8220952727',
       image: 'assets/images/mini-placement.png',
       teamSize: 'Individual participation',
+      color: Colors.teal.shade100,
     ),
     Event(
       title: "DB Dwellers",
@@ -61,6 +61,7 @@ class HomePage extends StatelessWidget {
       contact: '7358681208',
       image: 'assets/images/db-dwellers.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.brown.shade100,
     ),
     Event(
       title: "Parseltongue",
@@ -71,6 +72,7 @@ class HomePage extends StatelessWidget {
       contact: '8680851230',
       image: 'assets/images/parseltongue.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.orange.shade100,
     ),
     Event(
       title: 'Web Hub',
@@ -81,6 +83,7 @@ class HomePage extends StatelessWidget {
       contact: '9962396478',
       image: 'assets/images/web-hub.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.green.shade100,
     ),
     Event(
       title: "Code 'N Chaos",
@@ -91,6 +94,7 @@ class HomePage extends StatelessWidget {
       contact: '9500759938',
       image: 'assets/images/code-n-chaos.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.grey.shade400,
     ),
     Event(
       title: "OOPS! It's Java!",
@@ -101,6 +105,7 @@ class HomePage extends StatelessWidget {
       contact: '9940191782',
       image: 'assets/images/oops-its-java.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.orange.shade100,
     ),
   ];
 
@@ -113,6 +118,7 @@ class HomePage extends StatelessWidget {
       contact: '9087907515',
       image: 'assets/images/kaleidoscope.jpg',
       teamSize: 'Individual participation',
+      color: Colors.green.shade100,
     ),
     Event(
       title: 'IPL Auction',
@@ -122,6 +128,7 @@ class HomePage extends StatelessWidget {
       contact: '7871615411',
       image: 'assets/images/ipl-auction.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.blue.shade100,
     ),
     Event(
       title: "Gaming",
@@ -131,6 +138,7 @@ class HomePage extends StatelessWidget {
       contact: '8903426741',
       image: 'assets/images/gaming.png',
       teamSize: 'Individual Participation',
+      color: Colors.grey.shade400,
     ),
     Event(
       title: "Connexions",
@@ -140,6 +148,7 @@ class HomePage extends StatelessWidget {
       contact: '9566146252',
       image: 'assets/images/connexions.png',
       teamSize: 'Max. 2 per team',
+      color: Colors.red.shade100,
     ),
     Event(
       title: 'BPlan',
@@ -149,6 +158,7 @@ class HomePage extends StatelessWidget {
       contact: '9500504137',
       image: 'assets/images/bplan.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.blue.shade100,
     ),
     Event(
       title: "Treasure Hunt",
@@ -158,6 +168,7 @@ class HomePage extends StatelessWidget {
       contact: '9171889661',
       image: 'assets/images/treasure-hunt.jpg',
       teamSize: 'Max. 3 per team',
+      color: Colors.amber.shade100,
     ),
     Event(
       title: 'Math O Mania',
@@ -167,6 +178,7 @@ class HomePage extends StatelessWidget {
       contact: '8072843284',
       image: 'assets/images/math-o-mania.jpg',
       teamSize: 'Max. 2 per team',
+      color: Colors.grey.shade400,
     ),
   ];
 
@@ -196,43 +208,37 @@ class HomePage extends StatelessWidget {
           children: [
             ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return Hero(
-                  tag: techEvents[index].title,
-                  child: EventCard(
-                    event: techEvents[index],
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        DetailsPageRoute(
-                          techEventsTitle,
-                          techEvents,
-                          index,
-                          showResults: true,
-                        ),
-                      );
-                    },
-                  ),
+                return EventCard(
+                  event: techEvents[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      DetailsPageRoute(
+                        techEventsTitle,
+                        techEvents,
+                        index,
+                        showResults: true,
+                      ),
+                    );
+                  },
                 );
               },
               itemCount: techEvents.length,
             ),
             ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return Hero(
-                  tag: nonTechEvents[index].title,
-                  child: EventCard(
-                    event: nonTechEvents[index],
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        DetailsPageRoute(
-                          nonTechEventsTitle,
-                          nonTechEvents,
-                          index,
-                        ),
-                      );
-                    },
-                  ),
+                return EventCard(
+                  event: nonTechEvents[index],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      DetailsPageRoute(
+                        nonTechEventsTitle,
+                        nonTechEvents,
+                        index,
+                      ),
+                    );
+                  },
                 );
               },
               itemCount: nonTechEvents.length,
