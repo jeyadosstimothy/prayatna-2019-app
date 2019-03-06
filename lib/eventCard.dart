@@ -227,7 +227,7 @@ class EventContentExpanded extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Text(
-          this.event.description,
+          this.event.tagline,
           style: descriptionStyle,
         ),
       ),
@@ -235,7 +235,7 @@ class EventContentExpanded extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Text(
-          'Date',
+          'Date & Time',
           style: subheadStyle,
         ),
       ),
