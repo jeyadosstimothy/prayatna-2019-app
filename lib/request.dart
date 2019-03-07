@@ -47,7 +47,7 @@ class HttpRequest {
               rank: team['rank'].toString(),
               members: List<String>.from(team['names']),
               marks: team['marks'].toString(),
-              isSelected: (team['rank'] < selected) ? true : false,
+              isSelected: (team['rank'] <= selected) ? true : false,
             );
           }).toList();
           this.view.onLoadResultsComplete(teams, selected);
