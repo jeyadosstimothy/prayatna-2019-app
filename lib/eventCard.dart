@@ -241,16 +241,17 @@ class EventContentExpanded extends StatelessWidget {
         .copyWith(color: Colors.black87, fontWeight: FontWeight.bold);
     final TextStyle descriptionStyle =
         theme.textTheme.body1.copyWith(color: Colors.black54);
+    final EdgeInsetsGeometry textPadding = const EdgeInsets.only(bottom: 3.0);
     final List<Widget> children = <Widget>[
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           this.event.title,
           style: titleStyle,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           this.event.tagline,
           style: descriptionStyle,
@@ -258,14 +259,14 @@ class EventContentExpanded extends StatelessWidget {
       ),
       Divider(),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           'Date & Time',
           style: subheadStyle,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           this.event.time,
           style: descriptionStyle,
@@ -273,14 +274,14 @@ class EventContentExpanded extends StatelessWidget {
       ),
       Divider(),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           'Venue',
           style: subheadStyle,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           this.event.venue,
           style: descriptionStyle,
@@ -288,14 +289,14 @@ class EventContentExpanded extends StatelessWidget {
       ),
       Divider(),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           'Team Size',
           style: subheadStyle,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
+        padding: textPadding,
         child: Text(
           this.event.teamSize,
           style: descriptionStyle,
@@ -349,7 +350,7 @@ class EventContentExpanded extends StatelessWidget {
       children: <Widget>[
         // Photo and title.
         SizedBox(
-          height: 184.0,
+          height: 174.0,
           child: Stack(
             children: <Widget>[
               Positioned.fill(
@@ -368,7 +369,7 @@ class EventContentExpanded extends StatelessWidget {
         ),
         // Description and share/explore buttons.
         Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
           child: DefaultTextStyle(
             softWrap: false,
             overflow: TextOverflow.ellipsis,
